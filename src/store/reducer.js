@@ -16,16 +16,17 @@ const reducer = (state = initialState, action) => {
             counter: state.counter - 1
         }
     }
-    if(type === 'INCREMENT_WITH_VALUE'){
+    if(type === 'ADD'){
         return {
             ...state, 
-            counter: state.counter + 5
+            counter: state.counter + action.val
         }
     }
-    if(type === 'DECREMENT_WITH_VALUE'){
+    if(type === 'SUBTRACT'){
         return {
             ...state, 
-            counter: state.counter - 5
+            // use the data from the dispatch action.x 
+            counter: state.counter - action.val
         }
     }
     return state;

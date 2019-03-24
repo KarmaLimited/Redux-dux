@@ -22,8 +22,8 @@ class Counter extends Component {
                 while below ther is a 'standard react fn'
                 */}
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter} />
-                <CounterControl label="Add 5" clicked={this.props.onIncrementCounterWithValue} />
-                <CounterControl label="Subtract 5" clicked={this.props.onDecrementCounterWithValue} />
+                <CounterControl label="Add 10" clicked={this.props.onIncrementCounterWithValue} />
+                <CounterControl label="Subtract 15" clicked={this.props.onDecrementCounterWithValue} />
             </div>
         );
     }
@@ -49,8 +49,8 @@ const mapDispatchToProps = dispatch => {
         // fn ref: fn              // needs to be anon & the actual fn is executed in the reducer.js
         onIncrementCounter: () => dispatch({ type: 'INCREMENT' }),
         onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
-        onIncrementCounterWithValue: () => dispatch({ type: 'INCREMENT_WITH_VALUE', value: 5 }),
-        onDecrementCounterWithValue : () => dispatch({type: 'DECREMENT_WITH_VALUE', value: -5 })
+        onIncrementCounterWithValue: () => dispatch({ type: 'ADD', val: 10 }),
+        onDecrementCounterWithValue : () => dispatch({type: 'SUBTRACT', val: 15 })
     }
 }
 
