@@ -1,0 +1,12 @@
+{
+  "name": "Redux-dux",
+  "version": "1.0.0",
+  "description": "redux-intro",
+  "main": "index.js",
+  "repository": "https://github.com/KarmaLimited/Redux-dux.git",
+  "author": "Stefan Lachmann <stefanlachmann@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "redux": "^4.0.1"
+  }
+}
