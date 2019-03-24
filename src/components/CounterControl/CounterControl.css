@@ -2,7 +2,7 @@
     width: 150px;
     padding: 20px;
     box-sizing: border-box;
-    margin: 16px;
+    margin: 40px 10px;
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #ccc;
     font-weight: bold;
@@ -13,5 +13,5 @@
 
 .CounterControl:hover,
 .CounterControl:active {
-    background-color: #eee;
+    background-color: green;
 }
