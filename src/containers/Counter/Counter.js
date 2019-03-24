@@ -1,75 +1,54 @@
 import React, { Component } from 'react';
-// connect is a fn that return a HOC used to connect data from react to redux
 import { connect } from 'react-redux';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 class Counter extends Component {
+    state = {
+        counter: 0
+    }
 
-    render() {
+    counterChangedHandler = ( action, value ) => {
+        switch ( action ) {
+            case 'inc':
+                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
+                break;
+            case 'dec':
+                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
+                break;
+            case 'add':
+                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
+                break;
+            case 'sub':
+                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
+                break;
+        }
+    }
+
+    render () {
         return (
             <div>
-                {/* 
-                in normal react you use to the components state
-                <CounterOutput value={this.state.counter} /> 
-                now with redux we connect to the redux state ->
-                */}
                 <CounterOutput value={this.props.ctr} />
-
                 <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
-                {/* difference  above is now a reference to the fn in mapDispatchTo props and does not need to have ()
-                while below ther is a 'standard react fn'
-                */}
-                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter} />
-                <CounterControl label="Add 10" clicked={this.props.onIncrementCounterWithValue} />
-                <CounterControl label="Subtract 15" clicked={this.props.onDecrementCounterWithValue} />
-                <hr />
-                <button onClick={this.props.onStoreResults}>Store Results</button>
-                <ul>
-                    {this.props.onStoredResults.map(strResult => (
-                        <li className="resultsListItem" key={strResult.id} onClick={() => this.props.onDeleteResults(strResult.id)}>{strResult.value}</li>
-                    ))}
-                </ul>
+                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
+                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
+                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
             </div>
         );
     }
 }
-// instructions to redux how its state should be mapped to props
-// props are not changed internally, state is. this is why we call it 
-// map state to props -> not changing state --> create a new clone for every update of state
+
 const mapStateToProps = state => {
     return {
-        // define prop names
-        // our name : redux state name
-        ctr: state.counter,
-        onStoredResults: state.results
-    }
-}
+        ctr: state.counter
+    };
+};
 
-
-// which kind of actions do i want to dispatch in this container
 const mapDispatchToProps = dispatch => {
     return {
-        // hold prop name which are refs (like a pointer) to fns
-        // which will be exected and dispatch the actions
+        onIncrementCounter: () => dispatch({type: 'INCREMENT'})
+    };
+};
 
-        // fn ref: fn              // needs to be anon & the actual fn is executed in the reducer.js
-        onIncrementCounter: () => dispatch({ type: 'INCREMENT' }),
-        onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
-        onIncrementCounterWithValue: () => dispatch({ type: 'ADD', val: 10 }),
-        onDecrementCounterWithValue: () => dispatch({ type: 'SUBTRACT', val: 15 }),
-        onStoreResults: () => dispatch({ type: 'STORE_RESULT' }),
-        onDeleteResults: (id) => dispatch({ type: 'DELETE_RESULT', resultsID: id })
-    }
-}
-
-// connect
-// used like this:
-// --> What piece of state do i want to pass along, what actions do i want to dispatch and from which component
-// export default connect('configs')(Counter);
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
-
-//sidenote
-// connnect(null, mapDispatchToProps)
-// connnect(mapStateToProps)
