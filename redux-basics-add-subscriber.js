@@ -26,7 +26,7 @@ const store = createStore(rootReducer);
 
 /* 
 Subscription
-are used 'instead' of console.log to listen for changes in the store
+are used 'instead' of ex: console.log to listen for changes in the store
 and inform the system or you whats happend
 subscribe takes 1 fn which runs after the state has been updated
 but there is a way around it, like so:
