@@ -22,6 +22,17 @@
 .App-link {
   color: #61dafb;
 }
+.resultsListItem{
+
+
+}
+.resultsListItem::after {
+  background: #94f794;
+  cursor:pointer;
+  margin-left:50px;
+  content: "X";
+  padding:2px;
+}
 
 @keyframes App-logo-spin {
   from {

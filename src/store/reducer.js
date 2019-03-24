@@ -30,11 +30,21 @@ const reducer = (state = initialState, action) => {
         case 'STORE_RESULT':
         return{
             ...state,
-            results: state.results.concat({id: new Date().toUTCString, value: state.counter})
+            // <li key=id>                 current state value
+            results: state.results.concat({id: new Date(), value: state.counter})
         }
         case 'DELETE_RESULT':
+
+        // thought behind it:
+        // const id = 2;
+        // const newArray = [...state.results];
+        // newArray.splice(id, 1);
+
+        // filter out the selected value using filter and the clicked elements id
+        const updatedArray = state.results.filter(result => result.id !== action.resultsID);
         return{
             ...state,
+            results: updatedArray
         }
 
         default:
