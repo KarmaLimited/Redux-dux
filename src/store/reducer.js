@@ -4,31 +4,33 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     const { type } = action;
-    if (action.type === 'INCREMENT') {
+    switch (type) {
+        case 'INCREMENT':
         return {
-            ...state, // this is not really needed since we only have 1 thing in our state which is the counter property
+            ...state,
             counter: state.counter + 1
         }
-    }
-    if (action.type === 'DECREMENT') {
+        case 'DECREMENT':
         return {
             ...state,
             counter: state.counter - 1
         }
-    }
-    if(type === 'ADD'){
+        case 'ADD':
         return {
             ...state, 
             counter: state.counter + action.val
         }
-    }
-    if(type === 'SUBTRACT'){
+        case 'SUBTRACT':
         return {
             ...state, 
             // use the data from the dispatch action.x 
             counter: state.counter - action.val
         }
+        default:
+            break;
     }
+    // if we dispatch an action that has no case we need to return the current state
+    // otherwise we will break the app
     return state;
 }
 
