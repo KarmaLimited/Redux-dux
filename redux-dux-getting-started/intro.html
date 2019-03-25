@@ -106,14 +106,11 @@
       <!-- Slide 3 -->
       <section>
         <div class="wrap">
+            <h3 style="text-align:center"><b>The Setup </b>
+              <p class="text-intro">Hur man skapar en redux app</p></h3>
           <div class="grid vertical-align">
             <div class="column">
-              <h3><b>The Setup </b></h3>
-              <p class="text-intro">Hur man skapar en redux app</p>
-              <p>Vi börjar med att skapa en node projekt:</p>
-              <ul>
-
-                <li><i>Bash:</i><br />
+              <p>1) Vi börjar med att skapa en node projekt:</p>
                   <pre>
 mkdir redux-dux
 
@@ -123,11 +120,9 @@ npm init
 
 yarn init
 </pre>
-                </li>
-              </ul>
             </div>
             <div class="column">
-              <i>Sen installerar vi redux</i>
+              <p>2) Sen installerar vi redux modulen (npm eller yarn)</p>
               <pre>
 npm install redux --save
 npm i redux -S
@@ -177,32 +172,31 @@ console.log(store.getState());
 
         -->
         <div class="wrap">
-          <h2>Sen skapar vi Redux.js</h2>
+          <h2 class="content-center">I projektet skapar vi filen "Redux.js"</h2>
           <ul class="flexblock features">
             <li>
               <div>
-                <h2>
-                  Eftersom vi enbart använder redux kommer vi använda 'ren' node syntax:
-                </h2>
+                <p>
+                 1) Eftersom vi enbart använder redux kommer vi använda 'ren' node syntax:
+                </p>
                 <br />
                 <pre>const redux = require('redux');</pre>
               </div>
             </li>
             <li>
               <div>
-                <h2>
-                  Vi börjar med att skapa en redux store (storage)
-                </h2>
+                <p>
+                  2) Skapa en redux store, Det är i store som vi sparar allt som sker i applicationen tänk 'storage'
+                </p><br/>
                 <pre>const createStore = redux.createStore;</pre>
               </div>
             </li>
             <li>
               <div>
-                <h2>
-                  sen skapar vi en reducer:
-                </h2>
-                reducern är den som i slutändan genomför förändringen i state
-                praxis är att kalla den primära reducern 'rootReducer'
+                <p>
+                3) Sen skapar vi en reducer:
+                </p>
+<br/>
 <pre>
 const rootReducer = (state, action) => {
  return state;
@@ -210,23 +204,27 @@ const rootReducer = (state, action) => {
 
 console.log(store.getState());
 </pre>
+<br/>
+<p>                
+  Praxis i redux är att kalla den primära reducern (om det finns en primär) 'rootReducer'
+</p>
               </div>
             </li>
           <li>
               <div>
                 <h2>State & action</h2>
                   <p>
-                      state motsvarar appen nuvarande tillstånd (it's current state)
-                      action är ungefär som ett meddelande tänk en ringsignal -> 
+                      State motsvarar en applikations nuvarande tillstånd.
+                      Man kan jämnföra en Action i Redux med ett meddelande eller som en ringsignal:
                       actionen indikerar att någon ringer och vem som ringer, men innan man lyft på luren händer inget.
-                      I redux motsvarar actionen "detta kommer att hända"
+                      I Redux motsvarar action indikationen "detta kommer att hända"
                     </p>
                   </pre>
                 </div>
           </li>
           <li>                
             <p>Då kan vi prova att köra applicationen:</p>
-                <pre>node redux.js</pre>
+                <pre>node Redux.js</pre>
               </div>
             </li>
           </section>
@@ -234,16 +232,16 @@ console.log(store.getState());
       </section>
       <section>
         <div class="wrap">
-          <h2><strong>OMG INGET HÄNDE!!!</strong></h2>
+          <h2 class="content-center"><strong>OMG INGET HÄNDE!!!</strong></h2>
           <ul class="flexblock gallery">
             <li>
-                <h2>Varför hände inget?</h2>
+                <h2  class="content-center">Varför hände inget?</h2>
               <a href="demos/why-webslides.html" title="Why WebSlides?">
                 <figure>
                   <img alt="Thumbnail Why WebSlides?" src="https://i.imgflip.com/x1hiy.jpg">
                   <figcaption>
 
-                    <h2>Jo för vi har inte gjort något som ska hända än</h2>
+                    <p class="content-center">Jo för vi har inte gjort något som ska hända än, </p>
                   </figcaption>
                 </figure>
               </a>
@@ -251,34 +249,38 @@ console.log(store.getState());
             <li>
 
               <div>
-                Vi har skapat en store:
+                Vi har skapat en store (storage):
 <pre>
-Och en reducer:
-</pre>
-Och en reducer: 
+const createStore = redux.createStore;
+</pre><br/>
+en reducer och en logger som visar vad som finns i store
 <pre>
-const rootReducer = (state = initState, action) => {
+const rootReducer = (state, action) => {
      return state;
 }
-
 
 const store = createStore(rootReducer);
 
 console.log(store.getState());
-</pre>
-Men vi har ännu inte state ett initialt State
+</pre><br/>
+Men vi har ännu inte state ett initialt State, därav undefined
+Så då skapar vi ett initalState 
 <pre>
 const initState = {
  counter: 0
 }
+</pre><br/>
+Vilket vi gör över rootReducern i redux.js
+där vi även definerar att state är lika med initState
+<pre>
+const rootReducer = (state = initState, action) => { 
 </pre>
-Vilket vi gör över rootReducern
 <br/>
-Så då om vi kör 
+Så om vi kör appen igen: 
 <pre>
   node redux.js
-</pre>
-igen borde vi få tillbaka
+</pre><br/>
+Borde vi få tillbaka
 <pre>
 { counter: 0 }
 </pre>
@@ -290,22 +292,22 @@ igen borde vi få tillbaka
       </section>
       <section>
         <div class="wrap">
-            <h2>Så vi tar och dispatchar några actions:</h2>
+            <h2 class="content-center">Så vi tar och dispatchar några actions:</h2>
           <div class="grid vertical-align">
             <div>
-              <p>vi börjar med att skapa dispatchers:</p>
+              <p>Vilket börjar med att skapa dispatchers:</p>
               <pre>
 store.dispatch({ type: 'INC_COUNTER' });
 
 store.dispatch({ type: 'ADD_COUNTER', value: 10 });
               </pre>
-              <p>type: är required och den enda actionen som har ett namn som måste användas
-              detta innebär att i actionen 'ADD_COUNTER' är value utbytbart mot vad som helst </p>
+              <p>'type:' är obligatoriskt i dispatchers och den enda actionen som har ett namn som måste användas
+              detta innebär att i actionen 'ADD_COUNTER' är 'value' utbytbart mot vad som helst</p>
               </div>
 <hr/>
               <div>
                 <p>
-                Sen implementerar vi dem i rootReducern:
+                Själva förändringen utför vi i rootReducern, det är här vi svarar i telefonen. <br/>
 
                 <!--
                  
@@ -320,11 +322,10 @@ take a copy of the current state
 and overwrite the value you want to change
 like this
                 -->
-Här tar vi en kopia av det nuvarande state: ...state
-och modifierar kopian
-
-ALDRIG NÅGONSIN MODIFIERA ORGINAL STATE!!!<br/>
-Detta : state.counter++ är total förbjudet och det pajar hela reduxs grundprincip och applikationens flöde
+Så vad är det vi gör här egentligen?<br/>
+Vi en kopia av det nuvarande statet = ...state<br/>
+och sen modifierar vi kopian genom att lägga till<br/>
+counter: state.counter + 1
 </p>
 <pre>
 const rootReducer = (state = initState, action) => {
@@ -344,9 +345,21 @@ return state;
 }
 const store = createStore(rootReducer);
 </pre>
+<p>I Redux finns det 1 primär regel: <br/>
+  ALDRIG NÅGONSIN MODIFIERA ORGINAL STATE!!!<br/>
+  <b>Detta</b>
+  </p>
+  <pre>        
+    ...state,
+    counter: state.counter + 1
+      mot 
+    state.counter++
+</pre><p>
+  Är förbjudet och det pajar hela reduxs grundprincip och applikationens flöde
+  </p>
 </div>
 <div class="column">
-<h3>Såhär ska Redux.js numera se ut:</h3>
+<!--<h3 class=" content-center">Såhär ska Redux.js numera se ut:</h3>
 <pre>    
 const redux = require('redux');
 const createStore = redux.createStore;
@@ -377,11 +390,10 @@ store.dispatch({ type: 'INC_COUNTER' });
 store.dispatch({ type: 'ADD_COUNTER', value: 10 });
 
 console.log(store.getState()); 
-              </pre>
+              </pre>-->
               </div>
               </ul>
             </div>
-          </div>
           <!--end .grid -->
         </div>
       </section>
@@ -389,27 +401,28 @@ console.log(store.getState());
         <!-- .wrap = container (width: 90%) -->
         <div class="wrap">
             <div class="column">
-          <h2><strong>Subscriptions:</strong> </h2>
-          <li>
+          <h2 class="content-center">Subscriptions</h2>
+          
               <p>
-                  Subscription är det man använder istället för exempelvis console.log för att informera appen om vad som händer och har hänt
-                  subscribe tar en funktion som argument och sja placeras precis efter store för att undvika eventuella sidoeffekter
-                  i reduxs flöde
+                  Subscription är det appen använder istället för exempelvis console.log.
+                  Subscriptions används för att informera appen om vad som händer och har hänt<br/>
+                  Subscribe tar en funktion som argument och ska placeras precis efter store för att undvika eventuella sidoeffekter
+                  i reduxs flöde.
             </p>
-            <pre>
+<pre>
 store.subscribe(store.getState())
-            </pre>
-            <p>Men kan också göras såhär:</p>
+</pre>
+            <p>Men om man vill eller behöver lägga in mer functioner i en subscription<br/>
+              kan också göras såhär:</p>
             <pre>
 store.subscribe(() => {
-  console.log('Subscription:', store.getState());
-  alert('Yoo from subscribe')
+  function 1) console.log('Subscription:', store.getState());
+  function 2) alert('Hello from subscribe')
 })    
 </pre>
-</div>
+</div><br/>
     <div class="column">
-</li>
-<h3>Den färdiga filen:</h3>
+<p>Såhär blev vår färdiga endast redux applikation</p>
 <pre>
 const redux = require('redux');
 const createStore = redux.createStore;
@@ -449,7 +462,7 @@ console.log(store.getState(), 'hey from console.log');
       <section class="slide-bottom">
         <div class="wrap">
 
-                <h2>>TNX</h2>
+                <h2 style="text-align:centerq">Det var Redux slutet av denna intro till Redux och numera känner ni till alla grundkoncepten i Redux</h2>
               <img alt="Thumbnail Why WebSlides?" src="https://media.giphy.com/media/qIXVd1RoKGqlO/giphy.gif" style="width:100%; height: auto">
          <p>Koden för denna förläsning finns tillgäng på:
           https://github.com/KarmaLimited/Redux-dux
